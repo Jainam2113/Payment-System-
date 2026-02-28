@@ -10,6 +10,7 @@ const routes = require('./routes');
 const app = express();
 
 // Security middleware
+app.set('trust proxy', 1);
 app.use(helmet()); // Set security headers
 
 // CORS configuration
