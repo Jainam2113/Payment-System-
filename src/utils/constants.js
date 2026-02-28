@@ -1,0 +1,102 @@
+// Role definitions
+const ROLES = {
+  ADMIN: 'admin',
+  MANAGER: 'manager',
+  USER: 'user'
+};
+
+// Permission definitions
+const PERMISSIONS = {
+  // User permissions
+  USERS_READ: 'users:read',
+  USERS_WRITE: 'users:write',
+  USERS_DELETE: 'users:delete',
+
+  // Payment permissions
+  PAYMENTS_CREATE: 'payments:create',
+  PAYMENTS_READ: 'payments:read',
+  PAYMENTS_APPROVE: 'payments:approve',
+  PAYMENTS_PROCESS: 'payments:process',
+  PAYMENTS_DELETE: 'payments:delete',
+
+  // Role management permissions
+  ROLES_MANAGE: 'roles:manage'
+};
+
+// Default role permissions mapping
+const ROLE_PERMISSIONS = {
+  [ROLES.ADMIN]: [
+    PERMISSIONS.USERS_READ,
+    PERMISSIONS.USERS_WRITE,
+    PERMISSIONS.USERS_DELETE,
+    PERMISSIONS.PAYMENTS_CREATE,
+    PERMISSIONS.PAYMENTS_READ,
+    PERMISSIONS.PAYMENTS_APPROVE,
+    PERMISSIONS.PAYMENTS_PROCESS,
+    PERMISSIONS.PAYMENTS_DELETE,
+    PERMISSIONS.ROLES_MANAGE
+  ],
+  [ROLES.MANAGER]: [
+    PERMISSIONS.USERS_READ,
+    PERMISSIONS.PAYMENTS_CREATE,
+    PERMISSIONS.PAYMENTS_READ,
+    PERMISSIONS.PAYMENTS_APPROVE,
+    PERMISSIONS.PAYMENTS_PROCESS,
+    PERMISSIONS.PAYMENTS_DELETE
+  ],
+  [ROLES.USER]: [
+    PERMISSIONS.PAYMENTS_CREATE,
+    PERMISSIONS.PAYMENTS_READ
+  ]
+};
+
+// Payment status definitions
+const PAYMENT_STATUS = {
+  PENDING: 'pending',
+  APPROVED: 'approved',
+  REJECTED: 'rejected',
+  PROCESSING: 'processing',
+  COMPLETED: 'completed',
+  FAILED: 'failed'
+};
+
+// Payment methods
+const PAYMENT_METHODS = {
+  CARD: 'card',
+  BANK_TRANSFER: 'bank_transfer',
+  WALLET: 'wallet'
+};
+
+// Valid payment status transitions
+const PAYMENT_STATUS_TRANSITIONS = {
+  [PAYMENT_STATUS.PENDING]: [PAYMENT_STATUS.APPROVED, PAYMENT_STATUS.REJECTED],
+  [PAYMENT_STATUS.APPROVED]: [PAYMENT_STATUS.PROCESSING],
+  [PAYMENT_STATUS.PROCESSING]: [PAYMENT_STATUS.COMPLETED, PAYMENT_STATUS.FAILED],
+  [PAYMENT_STATUS.REJECTED]: [],
+  [PAYMENT_STATUS.COMPLETED]: [],
+  [PAYMENT_STATUS.FAILED]: []
+};
+
+// HTTP Status codes
+const HTTP_STATUS = {
+  OK: 200,
+  CREATED: 201,
+  BAD_REQUEST: 400,
+  UNAUTHORIZED: 401,
+  FORBIDDEN: 403,
+  NOT_FOUND: 404,
+  CONFLICT: 409,
+  UNPROCESSABLE_ENTITY: 422,
+  TOO_MANY_REQUESTS: 429,
+  INTERNAL_SERVER_ERROR: 500
+};
+
+module.exports = {
+  ROLES,
+  PERMISSIONS,
+  ROLE_PERMISSIONS,
+  PAYMENT_STATUS,
+  PAYMENT_METHODS,
+  PAYMENT_STATUS_TRANSITIONS,
+  HTTP_STATUS
+};
